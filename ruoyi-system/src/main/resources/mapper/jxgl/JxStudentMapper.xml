@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.jxgl.mapper.JxStudentMapper">
+
+    <resultMap type="JxStudent" id="JxStudentResult">
+        <id     property="sno"        column="sno"       />
+        <result property="sname"      column="sname"     />
+        <result property="stuclass"      column="stuclass"     />
+        <result property="ssex"      column="ssex"     />
+        <result property="bday"        column="bday"        />
+        <result property="bplace"      column="bplace"     />
+        <result property="IDNum"    column="IDNum"   />
+        <result property="sdept"      column="sdept"     />
+        <result property="phone"    column="phone"   />
+    </resultMap>
+
+    <sql id="selectStudentVo">
+        select *
+        from jx_students
+    </sql>
+
+    <select id="selectStudentList" parameterType="JxStudent" resultMap="JxStudentResult">
+        <include refid="selectStudentVo"/>
+
+        <where>
+            <if test="sno != null and sno != ''">
+                AND sno like #{sno}
+            </if>
+            <if test="sname != null and sname != ''">
+                AND sname like concat("%", #{sname}, "%")
+            </if>
+            <if test="stuclass != null and stuclass != ''">
+                AND stuclass like concat("%", #{stuclass}, "%")
+            </if>
+            <if test="ssex != null and ssex != ''">
+                AND ssex like #{ssex}
+            </if>
+            <if test="bday != null and bday != ''">
+                AND bday like #{bday}
+            </if>
+            <if test="bplace != null and bplace != ''">
+                AND bplace like #{bplace}
+            </if>
+            <if test="IDNum != null and IDNum != ''">
+                AND IDNum like #{IDNum}
+            </if>
+            <if test="sdept != null and sdept != ''">
+                AND sdept like #{sdept}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone like #{phone}
+            </if>
+
+
+        </where>
+    </select>
+
+
+
+</mapper>
