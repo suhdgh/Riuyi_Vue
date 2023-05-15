@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.jxgl.mapper.JxTeacherMapper">
+
+    <resultMap type="JxTeachers" id="JxTeacherResult">
+        <id     property="tno"        column="tno"       />
+        <result property="tname"      column="tname"     />
+        <result property="ps"      column="ps"     />
+        <result property="tbirthday"      column="tbirthday"     />
+        <result property="tdept"        column="tdept"        />
+        <result property="tsex"      column="tsex"     />
+    </resultMap>
+
+    <sql id="selectTeachersVo">
+        select *
+        from jx_teachers
+    </sql>
+
+    <select id="selectTeacherList" parameterType="JxTeachers" resultMap="JxTeacherResult">
+        <include refid="selectTeachersVo"/>
+
+        <where>
+            <if test="tno != null and tno != ''">
+                AND tno like #{tno}
+            </if>
+            <if test="tname != null and tname != ''">
+                AND tname like concat("%", #{tname}, "%")
+            </if>
+            <if test="ps != null and ps != ''">
+                AND ps like concat("%", #{ps}, "%")
+            </if>
+            <if test="tbirthday != null and tbirthday != ''">
+                AND tbirthday like #{tbirthday}
+            </if>
+            <if test="tdept != null and tdept != ''">
+                AND tdept like #{tdept}
+            </if>
+            <if test="tsex != null and tsex != ''">
+                AND tsex like #{tsex}
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>
