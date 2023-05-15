@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 岗位表 sys_post
+ * 学生表
  *
  * @author ruoyi
  */

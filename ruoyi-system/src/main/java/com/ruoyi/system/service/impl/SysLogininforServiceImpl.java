@@ -16,7 +16,7 @@ import com.ruoyi.system.service.ISysLogininforService;
 public class SysLogininforServiceImpl implements ISysLogininforService
 {
 
-    @Autowired
+    @Autowired(required = false)
     private SysLogininforMapper logininforMapper;
 
     /**
