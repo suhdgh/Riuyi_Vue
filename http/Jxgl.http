@@ -1,0 +1,5 @@
+GET  http://localhost:8080/jxgl/student/list
+content-type: application/json
+# Authorization:Bearer eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjM3OTRlMWY1LTc4ZDMtNGY3MC1hZGRlLTg5MGMwNzE3NmQ5YiJ9.TMQpKdtOVz9f-0530Q-4ar18i8l5Ggx0Env0HVc-fJixrqVMI3qSspr-8SXgUyxtC2AbYpo5aNZyID_aCrLx_w
+
+{}
