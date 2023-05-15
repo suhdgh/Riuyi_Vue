@@ -6,19 +6,23 @@
 </template>
 
 <script>
-import ThemePicker from "@/components/ThemePicker";
+import ThemePicker from "@/components/ThemePicker/index.vue";
 
 export default {
   name: "App",
   components: { ThemePicker },
-    metaInfo() {
-        return {
-            title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
-            titleTemplate: title => {
-                return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
-            }
-        }
-    }
+  metaInfo() {
+    return {
+      title:
+        this.$store.state.settings.dynamicTitle &&
+        this.$store.state.settings.title,
+      titleTemplate: (title) => {
+        return title
+          ? `${title} - ${process.env.VUE_APP_TITLE}`
+          : process.env.VUE_APP_TITLE;
+      },
+    };
+  },
 };
 </script>
 <style scoped>
