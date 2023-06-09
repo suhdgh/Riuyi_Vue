@@ -21,5 +21,4 @@ public interface JxCourseMapper
      */
     public List<JxCourse> selectCourseList(JxCourse course);
 
-
 }
