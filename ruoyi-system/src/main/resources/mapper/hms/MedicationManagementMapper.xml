@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms.mapper.MedicationManagementMapper">
+    
+    <resultMap type="MedicationManagement" id="MedicationManagementResult">
+        <result property="medicationId"    column="medication_id"    />
+        <result property="name"    column="name"    />
+        <result property="specification"    column="specification"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+
+    <sql id="selectMedicationManagementVo">
+        select medication_id, name, specification, stock_quantity, price from medication_management
+    </sql>
+
+    <select id="selectMedicationManagementList" parameterType="MedicationManagement" resultMap="MedicationManagementResult">
+        <include refid="selectMedicationManagementVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectMedicationManagementByMedicationId" parameterType="Long" resultMap="MedicationManagementResult">
+        <include refid="selectMedicationManagementVo"/>
+        where medication_id = #{medicationId}
+    </select>
+        
+    <insert id="insertMedicationManagement" parameterType="MedicationManagement">
+        insert into medication_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicationId != null">medication_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="specification != null and specification != ''">specification,</if>
+            <if test="stockQuantity != null">stock_quantity,</if>
+            <if test="price != null">price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicationId != null">#{medicationId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="specification != null and specification != ''">#{specification},</if>
+            <if test="stockQuantity != null">#{stockQuantity},</if>
+            <if test="price != null">#{price},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicationManagement" parameterType="MedicationManagement">
+        update medication_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="specification != null and specification != ''">specification = #{specification},</if>
+            <if test="stockQuantity != null">stock_quantity = #{stockQuantity},</if>
+            <if test="price != null">price = #{price},</if>
+        </trim>
+        where medication_id = #{medicationId}
+    </update>
+
+    <delete id="deleteMedicationManagementByMedicationId" parameterType="Long">
+        delete from medication_management where medication_id = #{medicationId}
+    </delete>
+
+    <delete id="deleteMedicationManagementByMedicationIds" parameterType="String">
+        delete from medication_management where medication_id in 
+        <foreach item="medicationId" collection="array" open="(" separator="," close=")">
+            #{medicationId}
+        </foreach>
+    </delete>
+</mapper>

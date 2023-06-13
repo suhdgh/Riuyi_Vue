@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms.mapper.ScheduleManagementMapper">
+    
+    <resultMap type="ScheduleManagement" id="ScheduleManagementResult">
+        <result property="scheduleId"    column="schedule_id"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="nurseId"    column="nurse_id"    />
+        <result property="scheduleDate"    column="schedule_date"    />
+        <result property="timeSlot"    column="time_slot"    />
+    </resultMap>
+
+    <sql id="selectScheduleManagementVo">
+        select schedule_id, doctor_id, nurse_id, schedule_date, time_slot from schedule_management
+    </sql>
+
+    <select id="selectScheduleManagementList" parameterType="ScheduleManagement" resultMap="ScheduleManagementResult">
+        <include refid="selectScheduleManagementVo"/>
+        <where>  
+            <if test="doctorId != null "> and doctor_id = #{doctorId}</if>
+            <if test="nurseId != null "> and nurse_id = #{nurseId}</if>
+            <if test="scheduleDate != null "> and schedule_date = #{scheduleDate}</if>
+            <if test="timeSlot != null  and timeSlot != ''"> and time_slot = #{timeSlot}</if>
+        </where>
+    </select>
+    
+    <select id="selectScheduleManagementByScheduleId" parameterType="Long" resultMap="ScheduleManagementResult">
+        <include refid="selectScheduleManagementVo"/>
+        where schedule_id = #{scheduleId}
+    </select>
+        
+    <insert id="insertScheduleManagement" parameterType="ScheduleManagement">
+        insert into schedule_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">schedule_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="nurseId != null">nurse_id,</if>
+            <if test="scheduleDate != null">schedule_date,</if>
+            <if test="timeSlot != null and timeSlot != ''">time_slot,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scheduleId != null">#{scheduleId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="nurseId != null">#{nurseId},</if>
+            <if test="scheduleDate != null">#{scheduleDate},</if>
+            <if test="timeSlot != null and timeSlot != ''">#{timeSlot},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScheduleManagement" parameterType="ScheduleManagement">
+        update schedule_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="nurseId != null">nurse_id = #{nurseId},</if>
+            <if test="scheduleDate != null">schedule_date = #{scheduleDate},</if>
+            <if test="timeSlot != null and timeSlot != ''">time_slot = #{timeSlot},</if>
+        </trim>
+        where schedule_id = #{scheduleId}
+    </update>
+
+    <delete id="deleteScheduleManagementByScheduleId" parameterType="Long">
+        delete from schedule_management where schedule_id = #{scheduleId}
+    </delete>
+
+    <delete id="deleteScheduleManagementByScheduleIds" parameterType="String">
+        delete from schedule_management where schedule_id in 
+        <foreach item="scheduleId" collection="array" open="(" separator="," close=")">
+            #{scheduleId}
+        </foreach>
+    </delete>
+</mapper>

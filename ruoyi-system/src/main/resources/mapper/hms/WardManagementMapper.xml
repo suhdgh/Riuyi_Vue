@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms.mapper.WardManagementMapper">
+    
+    <resultMap type="WardManagement" id="WardManagementResult">
+        <result property="wardId"    column="ward_id"    />
+        <result property="bedCount"    column="bed_count"    />
+        <result property="wardStatus"    column="ward_status"    />
+    </resultMap>
+
+    <sql id="selectWardManagementVo">
+        select ward_id, bed_count, ward_status from ward_management
+    </sql>
+
+    <select id="selectWardManagementList" parameterType="WardManagement" resultMap="WardManagementResult">
+        <include refid="selectWardManagementVo"/>
+        <where>  
+            <if test="bedCount != null "> and bed_count = #{bedCount}</if>
+            <if test="wardStatus != null  and wardStatus != ''"> and ward_status = #{wardStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectWardManagementByWardId" parameterType="Long" resultMap="WardManagementResult">
+        <include refid="selectWardManagementVo"/>
+        where ward_id = #{wardId}
+    </select>
+        
+    <insert id="insertWardManagement" parameterType="WardManagement">
+        insert into ward_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="wardId != null">ward_id,</if>
+            <if test="bedCount != null">bed_count,</if>
+            <if test="wardStatus != null and wardStatus != ''">ward_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="wardId != null">#{wardId},</if>
+            <if test="bedCount != null">#{bedCount},</if>
+            <if test="wardStatus != null and wardStatus != ''">#{wardStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWardManagement" parameterType="WardManagement">
+        update ward_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bedCount != null">bed_count = #{bedCount},</if>
+            <if test="wardStatus != null and wardStatus != ''">ward_status = #{wardStatus},</if>
+        </trim>
+        where ward_id = #{wardId}
+    </update>
+
+    <delete id="deleteWardManagementByWardId" parameterType="Long">
+        delete from ward_management where ward_id = #{wardId}
+    </delete>
+
+    <delete id="deleteWardManagementByWardIds" parameterType="String">
+        delete from ward_management where ward_id in 
+        <foreach item="wardId" collection="array" open="(" separator="," close=")">
+            #{wardId}
+        </foreach>
+    </delete>
+</mapper>

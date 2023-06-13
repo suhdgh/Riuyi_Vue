@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms.mapper.UserManagementMapper">
+    
+    <resultMap type="UserManagement" id="UserManagementResult">
+        <result property="userId"    column="user_id"    />
+        <result property="username"    column="username"    />
+        <result property="password"    column="password"    />
+        <result property="role"    column="role"    />
+    </resultMap>
+
+    <sql id="selectUserManagementVo">
+        select user_id, username, password, role from user_management
+    </sql>
+
+    <select id="selectUserManagementList" parameterType="UserManagement" resultMap="UserManagementResult">
+        <include refid="selectUserManagementVo"/>
+        <where>  
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="role != null  and role != ''"> and role = #{role}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserManagementByUserId" parameterType="Long" resultMap="UserManagementResult">
+        <include refid="selectUserManagementVo"/>
+        where user_id = #{userId}
+    </select>
+        
+    <insert id="insertUserManagement" parameterType="UserManagement">
+        insert into user_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="role != null and role != ''">role,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="role != null and role != ''">#{role},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserManagement" parameterType="UserManagement">
+        update user_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="role != null and role != ''">role = #{role},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteUserManagementByUserId" parameterType="Long">
+        delete from user_management where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteUserManagementByUserIds" parameterType="String">
+        delete from user_management where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>

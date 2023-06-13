@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms.mapper.MedicalRecordsMapper">
+    
+    <resultMap type="MedicalRecords" id="MedicalRecordsResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="diagnosisResult"    column="diagnosis_result"    />
+        <result property="prescription"    column="prescription"    />
+    </resultMap>
+
+    <sql id="selectMedicalRecordsVo">
+        select record_id, patient_id, doctor_id, diagnosis_result, prescription from medical_records
+    </sql>
+
+    <select id="selectMedicalRecordsList" parameterType="MedicalRecords" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="doctorId != null "> and doctor_id = #{doctorId}</if>
+            <if test="diagnosisResult != null  and diagnosisResult != ''"> and diagnosis_result = #{diagnosisResult}</if>
+            <if test="prescription != null  and prescription != ''"> and prescription = #{prescription}</if>
+        </where>
+    </select>
+    
+    <select id="selectMedicalRecordsByRecordId" parameterType="Long" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertMedicalRecords" parameterType="MedicalRecords">
+        insert into medical_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">record_id,</if>
+            <if test="patientId != null">patient_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="diagnosisResult != null">diagnosis_result,</if>
+            <if test="prescription != null">prescription,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">#{recordId},</if>
+            <if test="patientId != null">#{patientId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="diagnosisResult != null">#{diagnosisResult},</if>
+            <if test="prescription != null">#{prescription},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicalRecords" parameterType="MedicalRecords">
+        update medical_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="diagnosisResult != null">diagnosis_result = #{diagnosisResult},</if>
+            <if test="prescription != null">prescription = #{prescription},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteMedicalRecordsByRecordId" parameterType="Long">
+        delete from medical_records where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteMedicalRecordsByRecordIds" parameterType="String">
+        delete from medical_records where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>
