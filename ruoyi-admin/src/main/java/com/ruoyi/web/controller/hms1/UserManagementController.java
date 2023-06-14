@@ -62,7 +62,7 @@ public class UserManagementController extends BaseController
     /**
      * 获取用户管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:user:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:user:query')")
     @GetMapping(value = "/{userId}")
     public AjaxResult getInfo(@PathVariable("userId") String userId)
     {
@@ -72,7 +72,7 @@ public class UserManagementController extends BaseController
     /**
      * 新增用户管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:user:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:user:add')")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody UserManagement userManagement)
@@ -83,7 +83,7 @@ public class UserManagementController extends BaseController
     /**
      * 修改用户管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:user:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody UserManagement userManagement)
@@ -94,7 +94,7 @@ public class UserManagementController extends BaseController
     /**
      * 删除用户管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:user:remove')")
+//    @PreAuthorize("@ss.hasPermi('hms1:user:remove')")
     @Log(title = "用户管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{userIds}")
     public AjaxResult remove(@PathVariable String[] userIds)

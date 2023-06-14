@@ -49,7 +49,7 @@ public class BillingManagementController extends BaseController
     /**
      * 导出费用管理列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:billing:export')")
+//    @PreAuthorize("@ss.hasPermi('hms1:billing:export')")
     @Log(title = "费用管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, BillingManagement billingManagement)
@@ -62,7 +62,7 @@ public class BillingManagementController extends BaseController
     /**
      * 获取费用管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:billing:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:billing:query')")
     @GetMapping(value = "/{billingId}")
     public AjaxResult getInfo(@PathVariable("billingId") String billingId)
     {
@@ -72,7 +72,7 @@ public class BillingManagementController extends BaseController
     /**
      * 新增费用管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:billing:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:billing:add')")
     @Log(title = "费用管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody BillingManagement billingManagement)
@@ -83,7 +83,7 @@ public class BillingManagementController extends BaseController
     /**
      * 修改费用管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:billing:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:billing:edit')")
     @Log(title = "费用管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody BillingManagement billingManagement)
@@ -94,7 +94,7 @@ public class BillingManagementController extends BaseController
     /**
      * 删除费用管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:billing:remove')")
+//    @PreAuthorize("@ss.hasPermi('hms1:billing:remove')")
     @Log(title = "费用管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{billingIds}")
     public AjaxResult remove(@PathVariable String[] billingIds)
