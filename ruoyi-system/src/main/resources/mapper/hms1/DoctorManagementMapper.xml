@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms1.mapper.DoctorManagementMapper">
+    
+    <resultMap type="DoctorManagement" id="DoctorManagementResult">
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="fullName"    column="full_name"    />
+        <result property="specialty"    column="specialty"    />
+        <result property="qualification"    column="qualification"    />
+    </resultMap>
+
+    <sql id="selectDoctorManagementVo">
+        select doctor_id, full_name, specialty, qualification from doctor_management
+    </sql>
+
+    <select id="selectDoctorManagementList" parameterType="DoctorManagement" resultMap="DoctorManagementResult">
+        <include refid="selectDoctorManagementVo"/>
+        <where>  
+            <if test="fullName != null  and fullName != ''"> and full_name like concat('%', #{fullName}, '%')</if>
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="qualification != null  and qualification != ''"> and qualification = #{qualification}</if>
+        </where>
+    </select>
+    
+    <select id="selectDoctorManagementByDoctorId" parameterType="String" resultMap="DoctorManagementResult">
+        <include refid="selectDoctorManagementVo"/>
+        where doctor_id = #{doctorId}
+    </select>
+        
+    <insert id="insertDoctorManagement" parameterType="DoctorManagement">
+        insert into doctor_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="fullName != null and fullName != ''">full_name,</if>
+            <if test="specialty != null and specialty != ''">specialty,</if>
+            <if test="qualification != null and qualification != ''">qualification,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="fullName != null and fullName != ''">#{fullName},</if>
+            <if test="specialty != null and specialty != ''">#{specialty},</if>
+            <if test="qualification != null and qualification != ''">#{qualification},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDoctorManagement" parameterType="DoctorManagement">
+        update doctor_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fullName != null and fullName != ''">full_name = #{fullName},</if>
+            <if test="specialty != null and specialty != ''">specialty = #{specialty},</if>
+            <if test="qualification != null and qualification != ''">qualification = #{qualification},</if>
+        </trim>
+        where doctor_id = #{doctorId}
+    </update>
+
+    <delete id="deleteDoctorManagementByDoctorId" parameterType="String">
+        delete from doctor_management where doctor_id = #{doctorId}
+    </delete>
+
+    <delete id="deleteDoctorManagementByDoctorIds" parameterType="String">
+        delete from doctor_management where doctor_id in 
+        <foreach item="doctorId" collection="array" open="(" separator="," close=")">
+            #{doctorId}
+        </foreach>
+    </delete>
+</mapper>
