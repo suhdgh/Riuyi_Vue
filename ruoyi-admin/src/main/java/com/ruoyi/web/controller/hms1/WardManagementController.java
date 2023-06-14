@@ -49,7 +49,7 @@ public class WardManagementController extends BaseController
     /**
      * 导出病房管理列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:ward:export')")
+//    @PreAuthorize("@ss.hasPermi('hms1:ward:export')")
     @Log(title = "病房管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, WardManagement wardManagement)
@@ -62,7 +62,7 @@ public class WardManagementController extends BaseController
     /**
      * 获取病房管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:ward:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:ward:query')")
     @GetMapping(value = "/{wardId}")
     public AjaxResult getInfo(@PathVariable("wardId") String wardId)
     {
@@ -72,7 +72,7 @@ public class WardManagementController extends BaseController
     /**
      * 新增病房管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:ward:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:ward:add')")
     @Log(title = "病房管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody WardManagement wardManagement)
@@ -83,7 +83,7 @@ public class WardManagementController extends BaseController
     /**
      * 修改病房管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:ward:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:ward:edit')")
     @Log(title = "病房管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody WardManagement wardManagement)

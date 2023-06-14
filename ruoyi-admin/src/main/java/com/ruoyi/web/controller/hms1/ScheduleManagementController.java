@@ -49,7 +49,7 @@ public class ScheduleManagementController extends BaseController
     /**
      * 导出排班管理列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:schedule:export')")
+//    @PreAuthorize("@ss.hasPermi('hms1:schedule:export')")
     @Log(title = "排班管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ScheduleManagement scheduleManagement)
@@ -62,7 +62,7 @@ public class ScheduleManagementController extends BaseController
     /**
      * 获取排班管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:schedule:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:schedule:query')")
     @GetMapping(value = "/{scheduleId}")
     public AjaxResult getInfo(@PathVariable("scheduleId") String scheduleId)
     {
@@ -72,7 +72,7 @@ public class ScheduleManagementController extends BaseController
     /**
      * 新增排班管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:schedule:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:schedule:add')")
     @Log(title = "排班管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ScheduleManagement scheduleManagement)
@@ -83,7 +83,7 @@ public class ScheduleManagementController extends BaseController
     /**
      * 修改排班管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:schedule:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:schedule:edit')")
     @Log(title = "排班管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ScheduleManagement scheduleManagement)
@@ -94,7 +94,7 @@ public class ScheduleManagementController extends BaseController
     /**
      * 删除排班管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:schedule:remove')")
+//    @PreAuthorize("@ss.hasPermi('hms1:schedule:remove')")
     @Log(title = "排班管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{scheduleIds}")
     public AjaxResult remove(@PathVariable String[] scheduleIds)

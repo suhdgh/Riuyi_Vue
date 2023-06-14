@@ -37,7 +37,7 @@ public class NurseManagementController extends BaseController
     /**
      * 查询护士管理列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:list')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:list')")
     @GetMapping("/list")
     public TableDataInfo list(NurseManagement nurseManagement)
     {
@@ -49,7 +49,7 @@ public class NurseManagementController extends BaseController
     /**
      * 导出护士管理列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:export')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:export')")
     @Log(title = "护士管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, NurseManagement nurseManagement)
@@ -62,7 +62,7 @@ public class NurseManagementController extends BaseController
     /**
      * 获取护士管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:query')")
     @GetMapping(value = "/{nurseId}")
     public AjaxResult getInfo(@PathVariable("nurseId") String nurseId)
     {
@@ -72,7 +72,7 @@ public class NurseManagementController extends BaseController
     /**
      * 新增护士管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:add')")
     @Log(title = "护士管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody NurseManagement nurseManagement)
@@ -83,7 +83,7 @@ public class NurseManagementController extends BaseController
     /**
      * 修改护士管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:edit')")
     @Log(title = "护士管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody NurseManagement nurseManagement)
@@ -94,7 +94,7 @@ public class NurseManagementController extends BaseController
     /**
      * 删除护士管理
      */
-    @PreAuthorize("@ss.hasPermi('hms1:nurse:remove')")
+//    @PreAuthorize("@ss.hasPermi('hms1:nurse:remove')")
     @Log(title = "护士管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{nurseIds}")
     public AjaxResult remove(@PathVariable String[] nurseIds)

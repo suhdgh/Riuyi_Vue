@@ -49,7 +49,7 @@ public class MedicalRecordsController extends BaseController
     /**
      * 导出就诊记录列表
      */
-    @PreAuthorize("@ss.hasPermi('hms1:records:export')")
+//    @PreAuthorize("@ss.hasPermi('hms1:records:export')")
     @Log(title = "就诊记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MedicalRecords medicalRecords)
@@ -62,7 +62,7 @@ public class MedicalRecordsController extends BaseController
     /**
      * 获取就诊记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('hms1:records:query')")
+//    @PreAuthorize("@ss.hasPermi('hms1:records:query')")
     @GetMapping(value = "/{recordId}")
     public AjaxResult getInfo(@PathVariable("recordId") String recordId)
     {
@@ -72,7 +72,7 @@ public class MedicalRecordsController extends BaseController
     /**
      * 新增就诊记录
      */
-    @PreAuthorize("@ss.hasPermi('hms1:records:add')")
+//    @PreAuthorize("@ss.hasPermi('hms1:records:add')")
     @Log(title = "就诊记录", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MedicalRecords medicalRecords)
@@ -83,7 +83,7 @@ public class MedicalRecordsController extends BaseController
     /**
      * 修改就诊记录
      */
-    @PreAuthorize("@ss.hasPermi('hms1:records:edit')")
+//    @PreAuthorize("@ss.hasPermi('hms1:records:edit')")
     @Log(title = "就诊记录", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MedicalRecords medicalRecords)
@@ -94,7 +94,7 @@ public class MedicalRecordsController extends BaseController
     /**
      * 删除就诊记录
      */
-    @PreAuthorize("@ss.hasPermi('hms1:records:remove')")
+//    @PreAuthorize("@ss.hasPermi('hms1:records:remove')")
     @Log(title = "就诊记录", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{recordIds}")
     public AjaxResult remove(@PathVariable String[] recordIds)
