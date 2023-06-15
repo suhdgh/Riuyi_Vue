@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms1.mapper.Dv1Mapper">
+    
+    <resultMap type="AgeNum" id="AgeNumResult">
+        <result property="ageGroup"    column="age_group"    />
+        <result property="recordCount"    column="record_count"    />
+    </resultMap>
+
+    <sql id="selectAgeNumVo">
+        select * from view_age_num
+    </sql>
+
+    <select id="selectAgeNumList" parameterType="AgeNum" resultMap="AgeNumResult">
+        <include refid="selectAgeNumVo"/>
+        <where>  
+            <if test="ageGroup != null  and ageGroup != ''"> and age_group = #{ageGroup}</if>
+            <if test="recordCount != null "> and record_count = #{recordCount}</if>
+        </where>
+    </select>
+
+    <resultMap type="Medication" id="MedicationResult">
+        <result property="name"    column="name"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="specification"    column="specification"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+
+    <sql id="selectMedicationVo">
+        select * from view_medication
+    </sql>
+
+    <select id="selectMedicationList" parameterType="Medication" resultMap="MedicationResult">
+        <include refid="selectMedicationVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="specification != null  and specification != ''"> and specification = #{specification}</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+
+    <resultMap type="NurseSpecialty" id="NurseSpecialtyResult">
+        <result property="specialty"    column="specialty"    />
+        <result property="nurseCount"    column="nurse_count"    />
+    </resultMap>
+
+    <sql id="selectNurseSpecialtyVo">
+        select * from view_nurse_specialty
+    </sql>
+
+    <select id="selectNurseSpecialtyList" parameterType="NurseSpecialty" resultMap="NurseSpecialtyResult">
+        <include refid="selectNurseSpecialtyVo"/>
+        <where>
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="nurseCount != null "> and nurse_count = #{nurseCount}</if>
+        </where>
+    </select>
+
+    <resultMap type="PercentageGender" id="PercentageGenderResult">
+        <result property="gender"    column="gender"    />
+        <result property="totalCount"    column="total_count"    />
+        <result property="percentage"    column="percentage"    />
+    </resultMap>
+
+    <sql id="selectPercentageGenderVo">
+        select * from view_percentage_gender
+    </sql>
+
+    <select id="selectPercentageGenderList" parameterType="PercentageGender" resultMap="PercentageGenderResult">
+        <include refid="selectPercentageGenderVo"/>
+        <where>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="totalCount != null "> and total_count = #{totalCount}</if>
+            <if test="percentage != null "> and percentage = #{percentage}</if>
+        </where>
+    </select>
+
+</mapper>
