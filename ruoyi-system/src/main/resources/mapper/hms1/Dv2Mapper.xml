@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.hms1.mapper.Dv2Mapper">
+    
+    <resultMap type="MailFemailMedical" id="MailFemailMedicalResult">
+        <result property="specialty"    column="specialty"    />
+        <result property="malePatientCount"    column="male_patient_count"    />
+        <result property="femalePatientCount"    column="female_patient_count"    />
+    </resultMap>
+
+    <sql id="selectMailFemailMedicalVo">
+        select * from view_mail_femail_medical
+    </sql>
+
+    <select id="selectMailFemailMedicalList" parameterType="MailFemailMedical" resultMap="MailFemailMedicalResult">
+        <include refid="selectMailFemailMedicalVo"/>
+        <where>  
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="malePatientCount != null "> and male_patient_count = #{malePatientCount}</if>
+            <if test="femalePatientCount != null "> and female_patient_count = #{femalePatientCount}</if>
+        </where>
+    </select>
+
+    <resultMap type="MaxSpecialtyNum" id="MaxSpecialtyNumResult">
+        <result property="specialty"    column="specialty"    />
+        <result property="doctorCount"    column="doctor_count"    />
+        <result property="nurseCount"    column="nurse_count"    />
+        <result property="totalCount"    column="total_count"    />
+        <result property="percentage"    column="percentage"    />
+    </resultMap>
+
+    <sql id="selectMaxSpecialtyNumVo">
+        select percentage from view_max_specialty_num
+    </sql>
+
+    <select id="selectMaxSpecialtyNumList" parameterType="MaxSpecialtyNum" resultMap="MaxSpecialtyNumResult">
+        <include refid="selectMaxSpecialtyNumVo"/>
+        <where>
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="doctorCount != null "> and doctor_count = #{doctorCount}</if>
+            <if test="nurseCount != null "> and nurse_count = #{nurseCount}</if>
+            <if test="totalCount != null "> and total_count = #{totalCount}</if>
+            <if test="percentage != null "> and percentage = #{percentage}</if>
+        </where>
+    </select>
+
+    <resultMap type="MedicalNum" id="MedicalNumResult">
+        <result property="specialty"    column="specialty"    />
+        <result property="patientCount"    column="patient_count"    />
+    </resultMap>
+
+    <sql id="selectMedicalNumVo">
+        select * from view_medical_num
+    </sql>
+
+    <select id="selectMedicalNumList" parameterType="MedicalNum" resultMap="MedicalNumResult">
+        <include refid="selectMedicalNumVo"/>
+        <where>
+            <if test="specialty != null  and specialty != ''"> and specialty = #{specialty}</if>
+            <if test="patientCount != null "> and patient_count = #{patientCount}</if>
+        </where>
+    </select>
+
+    <resultMap type="Paid" id="PaidResult">
+        <result property="percentage"    column="percentage"    />
+    </resultMap>
+
+    <sql id="selectPaidVo">
+        select * from view_paid
+    </sql>
+
+    <select id="selectPaidList" parameterType="Paid" resultMap="PaidResult">
+        <include refid="selectPaidVo"/>
+        <where>
+            <if test="percentage != null "> and percentage = #{percentage}</if>
+        </where>
+    </select>
+
+    <resultMap type="Pending" id="PendingResult">
+        <result property="percentage"    column="percentage"    />
+    </resultMap>
+
+    <sql id="selectPendingVo">
+        select * from view_pending
+    </sql>
+
+    <select id="selectPendingList" parameterType="Pending" resultMap="PendingResult">
+        <include refid="selectPendingVo"/>
+        <where>
+            <if test="percentage != null "> and percentage = #{percentage}</if>
+        </where>
+    </select>
+
+    <resultMap type="Ward" id="WardResult">
+        <result property="occupancyRate"    column="occupancy_rate"    />
+    </resultMap>
+
+    <sql id="selectWardVo">
+        select * from view_ward
+    </sql>
+
+    <select id="selectWardList" parameterType="Ward" resultMap="WardResult">
+        <include refid="selectWardVo"/>
+        <where>
+            <if test="occupancyRate != null "> and occupancy_rate = #{occupancyRate}</if>
+        </where>
+    </select>
+
+</mapper>
