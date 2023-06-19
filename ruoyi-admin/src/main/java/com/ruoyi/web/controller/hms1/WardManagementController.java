@@ -41,7 +41,7 @@ public class WardManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(WardManagement wardManagement)
     {
-        startPage();
+//        startPage();
         List<WardManagement> list = wardManagementService.selectWardManagementList(wardManagement);
         return getDataTable(list);
     }

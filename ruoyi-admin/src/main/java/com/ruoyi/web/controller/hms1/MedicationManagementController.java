@@ -41,7 +41,7 @@ public class MedicationManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(MedicationManagement medicationManagement)
     {
-        startPage();
+//        startPage();
         List<MedicationManagement> list = medicationManagementService.selectMedicationManagementList(medicationManagement);
         return getDataTable(list);
     }

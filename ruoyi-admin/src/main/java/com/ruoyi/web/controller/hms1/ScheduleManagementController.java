@@ -41,7 +41,7 @@ public class ScheduleManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(ScheduleManagement scheduleManagement)
     {
-        startPage();
+//        startPage();
         List<ScheduleManagement> list = scheduleManagementService.selectScheduleManagementList(scheduleManagement);
         return getDataTable(list);
     }

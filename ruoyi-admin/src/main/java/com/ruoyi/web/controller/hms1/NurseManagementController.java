@@ -41,7 +41,7 @@ public class NurseManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(NurseManagement nurseManagement)
     {
-        startPage();
+//        startPage();
         List<NurseManagement> list = nurseManagementService.selectNurseManagementList(nurseManagement);
         return getDataTable(list);
     }

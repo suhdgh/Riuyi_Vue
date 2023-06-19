@@ -41,7 +41,7 @@ public class UserManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(UserManagement userManagement)
     {
-        startPage();
+//        startPage();
         List<UserManagement> list = userManagementService.selectUserManagementList(userManagement);
         return getDataTable(list);
     }

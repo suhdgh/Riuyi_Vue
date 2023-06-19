@@ -41,7 +41,7 @@ public class BillingManagementController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(BillingManagement billingManagement)
     {
-        startPage();
+//        startPage();
         List<BillingManagement> list = billingManagementService.selectBillingManagementList(billingManagement);
         return getDataTable(list);
     }

@@ -41,7 +41,7 @@ public class MedicalRecordsController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(MedicalRecords medicalRecords)
     {
-        startPage();
+//        startPage();
         List<MedicalRecords> list = medicalRecordsService.selectMedicalRecordsList(medicalRecords);
         return getDataTable(list);
     }
