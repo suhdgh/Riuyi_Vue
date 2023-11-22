@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.dooring.mapper.UserMapper">
+    
+    <resultMap type="User" id="UserResult">
+        <result property="id"    column="id"    />
+        <result property="n"    column="n"    />
+        <result property="wx"    column="wx"    />
+        <result property="co"    column="co"    />
+        <result property="od"    column="od"    />
+        <result property="rp"    column="rp"    />
+        <result property="h5"    column="h5"    />
+        <result property="tpl"    column="tpl"    />
+        <result property="h5Num"    column="h5Num"    />
+        <result property="tplNum"    column="tplNum"    />
+    </resultMap>
+
+    <sql id="selectUserVo">
+        select n, co, od, rp, h5 from user
+    </sql>
+
+    <select id="selectUserList" parameterType="User" resultMap="UserResult">
+        <include refid="selectUserVo"/>
+        <where>  
+            <if test="n != null  and n != ''"> and n = #{n}</if>
+            <if test="od != null  and od != ''"> and od = #{od}</if>
+            <if test="rp != null  and rp != ''"> and rp = #{rp}</if>
+            <if test="h5 != null  and h5 != ''"> and h5 = #{h5}</if>
+        </where>
+    </select>
+    
+    <select id="selectUserById" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectUserNCo" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"/>
+        <where>
+            <if test="n != null  and n != ''"> and n = #{n}</if>
+            <if test="co != null  and co != ''"> and co = #{co}</if>
+        </where>
+    </select>
+
+    <insert id="insertUser" parameterType="User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="n != null and n != ''">n,</if>
+            <if test="wx != null">wx,</if>
+            <if test="co != null and co != ''">co,</if>
+            <if test="od != null">od,</if>
+            <if test="rp != null and rp != ''">rp,</if>
+            <if test="h5 != null">h5,</if>
+            <if test="tpl != null">tpl,</if>
+            <if test="h5Num != null">h5Num,</if>
+            <if test="tplNum != null">tplNum,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="n != null and n != ''">#{n},</if>
+            <if test="wx != null">#{wx},</if>
+            <if test="co != null and co != ''">#{co},</if>
+            <if test="od != null">#{od},</if>
+            <if test="rp != null and rp != ''">#{rp},</if>
+            <if test="h5 != null">#{h5},</if>
+            <if test="tpl != null">#{tpl},</if>
+            <if test="h5Num != null">#{h5Num},</if>
+            <if test="tplNum != null">#{tplNum},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="n != null and n != ''">n = #{n},</if>
+            <if test="wx != null">wx = #{wx},</if>
+            <if test="co != null and co != ''">co = #{co},</if>
+            <if test="od != null">od = #{od},</if>
+            <if test="rp != null and rp != ''">rp = #{rp},</if>
+            <if test="h5 != null">h5 = #{h5},</if>
+            <if test="tpl != null">tpl = #{tpl},</if>
+            <if test="h5Num != null">h5Num = #{h5Num},</if>
+            <if test="tplNum != null">tplNum = #{tplNum},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="String">
+        delete from user where id = #{id}
+    </delete>
+
+    <delete id="deleteUserByIds" parameterType="String">
+        delete from user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.hms1;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +24,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 费用管理Controller
- * 
+ *
  * @author ruoyi
  * @date 2023-06-14
  */
 @RestController
 @RequestMapping("/hms1/billing")
-public class BillingManagementController extends BaseController
-{
+public class BillingManagementController extends BaseController {
     @Autowired
     private IBillingManagementService billingManagementService;
 
@@ -39,11 +39,13 @@ public class BillingManagementController extends BaseController
      */
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:list')")
     @GetMapping("/list")
-    public TableDataInfo list(BillingManagement billingManagement)
-    {
+    public TableDataInfo list(BillingManagement billingManagement) {
 //        startPage();
+
         List<BillingManagement> list = billingManagementService.selectBillingManagementList(billingManagement);
         return getDataTable(list);
+
+
     }
 
     /**
@@ -52,8 +54,7 @@ public class BillingManagementController extends BaseController
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:export')")
     @Log(title = "费用管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, BillingManagement billingManagement)
-    {
+    public void export(HttpServletResponse response, BillingManagement billingManagement) {
         List<BillingManagement> list = billingManagementService.selectBillingManagementList(billingManagement);
         ExcelUtil<BillingManagement> util = new ExcelUtil<BillingManagement>(BillingManagement.class);
         util.exportExcel(response, list, "费用管理数据");
@@ -64,8 +65,7 @@ public class BillingManagementController extends BaseController
      */
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:query')")
     @GetMapping(value = "/{billingId}")
-    public AjaxResult getInfo(@PathVariable("billingId") String billingId)
-    {
+    public AjaxResult getInfo(@PathVariable("billingId") String billingId) {
         return success(billingManagementService.selectBillingManagementByBillingId(billingId));
     }
 
@@ -75,8 +75,7 @@ public class BillingManagementController extends BaseController
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:add')")
     @Log(title = "费用管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody BillingManagement billingManagement)
-    {
+    public AjaxResult add(@RequestBody BillingManagement billingManagement) {
         return toAjax(billingManagementService.insertBillingManagement(billingManagement));
     }
 
@@ -86,8 +85,7 @@ public class BillingManagementController extends BaseController
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:edit')")
     @Log(title = "费用管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody BillingManagement billingManagement)
-    {
+    public AjaxResult edit(@RequestBody BillingManagement billingManagement) {
         return toAjax(billingManagementService.updateBillingManagement(billingManagement));
     }
 
@@ -96,9 +94,8 @@ public class BillingManagementController extends BaseController
      */
 //    @PreAuthorize("@ss.hasPermi('hms1:billing:remove')")
     @Log(title = "费用管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{billingIds}")
-    public AjaxResult remove(@PathVariable String[] billingIds)
-    {
+    @DeleteMapping("/{billingIds}")
+    public AjaxResult remove(@PathVariable String[] billingIds) {
         return toAjax(billingManagementService.deleteBillingManagementByBillingIds(billingIds));
     }
 }
